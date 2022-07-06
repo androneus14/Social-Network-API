@@ -10,10 +10,10 @@ module.exports = {
 
     // GET USER BY ID
     getUserById (req, res) {
-        User.findOne({_id: req.params.userId})
-            .select('-__v')
-            .populate('friends')
+        User.findOne({ _id: req.params.id })
             .populate('thoughts')
+            .populate('friends')
+            .select('-__v')
             .then((user) =>
                 !user
                     ? res.status(404).json({ message: "No User found with this ID" })
@@ -26,15 +26,12 @@ module.exports = {
     newUser (req, res) {
         User.create(req.body)
             .then((user) => res.json(user))
-            .catch((err) => {
-                console.log(err);
-                return res.status(500).json(err);
-            });
+            .catch((err) => res.status(500).json(err));
     },
 
     // DELETE USER BY ID "User $pull to delete the user by ID"
     deleteUser (req, res) {
-        User.findOneAndDelete({ _id: req.params.userId})
+        User.findOneAndDelete({ _id: req.params.id})
             .then((user) =>
                 !user
                     ? res.stauts(404).json({ message: "No User found with this ID" })
@@ -47,7 +44,7 @@ module.exports = {
     // UPDATE USER BY ID "Use $set to update the user by ID"
     updateUser (req, res) {
         User.findOneAndUpdate(
-            { _id: req.params.userId },
+            { _id: req.params.id },
             { $set: req.body },
             { runValidators: true, new: true }
         )
