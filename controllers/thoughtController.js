@@ -3,7 +3,7 @@ const { User, Thought } = require('../models');
 module.exports = {
     // GET ALL THOUGHTS
     getAllThoughts (req, res) {
-        Thought.find()
+        Thought.find({})
             .then((thought) => res.json(thought))
             .catch((err) => res.status(500).json(err));
     },
@@ -26,7 +26,7 @@ module.exports = {
             .then(({ _id }) => {
                 return User.findOneAndUpdate(
                     { _id: req.body.userId },
-                    { $addToSet: {thoughts: _id }},
+                    { $addToSet: {thought: _id }},
                     { new: true }
                 );
             })
