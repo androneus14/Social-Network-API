@@ -20,7 +20,7 @@ module.exports = {
             .catch((err) => res.status(500).json(err));
     },
 
-    // CREATE NEW THOUGHT "Use $addToSet to add the new thought to the user"
+    // CREATE NEW THOUGHT AND ADD IT TO A USER "Use $addToSet to add the new thought to the user"
     newThought (req, res) {
         Thought.create(req.body)
             .then(({ _id }) => {
@@ -38,7 +38,7 @@ module.exports = {
             .catch((err) => res.status(500).json(err));
     },
 
-    // UPDATE THOUGHT ID "Use $set to update the thought of the user"
+    // UPDATE THOUGHT BY ID "Use $set to update the thought of the user"
     updateThought (req, res) {
         Thought.findOneAndUpdate(
             { _id: req.params.thoughtId },

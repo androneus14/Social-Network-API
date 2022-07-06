@@ -22,7 +22,7 @@ module.exports = {
             .catch((err) => res.status(500).json(err));
     },
 
-    // CREATE A NEW USER
+    // CREATE A NEW USER "We don't need to use $addToSet as it is the parent."
     newUser (req, res) {
         User.create(req.body)
             .then((user) => res.json(user))
@@ -32,7 +32,7 @@ module.exports = {
             });
     },
 
-    // DELETE USER
+    // DELETE USER BY ID "User $pull to delete the user by ID"
     deleteUser (req, res) {
         User.findOneAndDelete({ _id: req.params.userId})
             .then((user) =>
@@ -44,7 +44,7 @@ module.exports = {
             .catch((err) => res.status(500).json(err));
     },
 
-    // UPDATE USER
+    // UPDATE USER BY ID "Use $set to update the user by ID"
     updateUser (req, res) {
         User.findOneAndUpdate(
             { _id: req.params.userId },
