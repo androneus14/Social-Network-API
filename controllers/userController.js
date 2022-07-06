@@ -31,7 +31,7 @@ module.exports = {
 
     // DELETE USER BY ID "User $pull to delete the user by ID"
     deleteUser (req, res) {
-        User.findOneAndDelete({ _id: req.params.id})
+        User.findOneAndDelete({ _id: req.params.userId})
             .then((user) =>
                 !user
                     ? res.stauts(404).json({ message: "No User found with this ID" })
@@ -44,7 +44,7 @@ module.exports = {
     // UPDATE USER BY ID "Use $set to update the user by ID"
     updateUser (req, res) {
         User.findOneAndUpdate(
-            { _id: req.params.id },
+            { _id: req.params.userId },
             { $set: req.body },
             { runValidators: true, new: true }
         )
