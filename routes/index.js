@@ -6,4 +6,4 @@ const userRoutes = require('./api/userRoutes');
 router.use('/api/thoughts', thoughtRoutes);
 router.use('/api/users', userRoutes);
 
-module.exports = router;
+module.exports = router; 

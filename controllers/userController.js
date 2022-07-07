@@ -8,7 +8,7 @@ module.exports = {
             .catch((err) => res.status(500).json(err));
     },
 
-    // GET USER BY ID
+    // GET USER BY ID "Use populate to get pre-existing thoughts and friends of the user based on ID"
     getUserById (req, res) {
         User.findOne({ _id: req.params.userId })
             .populate('thoughts')
@@ -56,7 +56,7 @@ module.exports = {
             .catch((err) => res.status(500).json(err));
     },
 
-    // ADD FRIEND TO A USER
+    // ADD FRIEND TO THE USER "Use $addToSet to add the friend to the user by ID"
     addFriend (req, res) {
         User.findOneAndUpdate(
             { _id: req.params.userId },
@@ -71,6 +71,7 @@ module.exports = {
         .catch(err => res.status(500).json(err))
     },
 
+    // DELETE FRIEND OF THE USER BY ID "Use $pull to remove the friend from the user by ID"
     deleteFriend (req, res) {
         User.findOneAndUpdate(
             { _id: req.params.userId },
