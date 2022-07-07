@@ -23,17 +23,17 @@ module.exports = {
     // CREATE NEW THOUGHT AND ADD IT TO A USER "Use $addToSet to add the new thought to the user"
     newThought (req, res) {
         Thought.create(req.body)
-            .then(({ _id }) => {
+            .then(({ username, _id }) => {
                 return User.findOneAndUpdate(
-                    { _id: req.body.userId },
-                    { $addToSet: {thought: _id }},
-                    { new: true }
-                );
+                    { username: username },
+                    { $push: { thoughts: _id }},
+                    { runValidators: true, new: true }
+                )
             })
-            .then((thought) =>
-                !thought
+            .then((user) =>
+                !user
                     ? res.status(404).json({ message: "No User found with this ID" })
-                    : res.json(thought)
+                    : res.json(user)
             )
             .catch((err) => res.status(500).json(err));
     },
